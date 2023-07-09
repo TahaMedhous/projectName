@@ -2,6 +2,9 @@ function playAudioMaster(url, id, icon) {
     var audio = document.getElementById(id);
     let iconClass = document.getElementById(icon).className;
     if (audio.paused) {
+        if (audio.src != url) {
+            audio.src = url;
+        }
         audio.play();
         const removed = iconClass.replace("fa-play", "fa-pause");
         document.getElementById(icon).className = removed;
@@ -33,11 +36,19 @@ function RemovePause(excluded) {
     }
 }
 
-function playBtn(id) {
-    var audio = document.getElementById(id);
-    if (audio.paused) {
-        audio.play();
-    } else {
-        audio.pause();
-    }
+function RemovePauseIconAfterAudioEnded() {
+    let pauseIcon = document.getElementsByClassName("fa-pause");
+    let audio = document.getElementById("audioPlayer");
+    audio.addEventListener("ended", function () {
+        audio.src = "unloaded";
+
+        for (let i = 0; i < pauseIcon.length; i++) {
+            pauseIcon[i].className = pauseIcon[i].className.replace(
+                "fa-pause",
+                "fa-play"
+            );
+        }
+    });
 }
+
+RemovePauseIconAfterAudioEnded();
