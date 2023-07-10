@@ -9,6 +9,10 @@ function playAudioMaster(url, id, icon) {
         const removed = iconClass.replace("fa-play", "fa-pause");
         document.getElementById(icon).className = removed;
     } else {
+        if (audio.readyState == 0) {
+            return;
+        }
+
         if (audio.src != url) {
             audio.src = url;
             audio.play();
