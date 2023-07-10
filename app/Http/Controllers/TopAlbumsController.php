@@ -10,7 +10,7 @@ class TopAlbumsController extends Controller
 {
     public function index()
     {
-        $apiResponse = Http::get('https://rss.applemarketingtools.com/api/v2/us/music/most-played/10/albums.json');
+        $apiResponse = Http::get('https://rss.applemarketingtools.com/api/v2/us/music/most-played/25/albums.json');
 
         if ($apiResponse->ok()) {
             $apiData = $apiResponse->json();

@@ -30,12 +30,23 @@ class AlbumController extends Controller
                         $albumData['songs'][] = $song;
                     }
                 }
-                usort($albumData['songs'], function ($a, $b) {
-                    return $a['trackNumber'] <=> $b['trackNumber'];
-                });
+                // if the album has multiple discs, we need to group the songs by disc number, then each disc by track number
+                $discs = [];
+                foreach ($albumData['songs'] as $song) {
+                    $discs[$song['discNumber']][] = $song;
+                }
+                $albumData['discs'] = $discs;
+                foreach ($albumData['discs'] as $discNumber => $disc) {
+                    usort($albumData['discs'][$discNumber], function ($a, $b) {
+                        return $a['trackNumber'] <=> $b['trackNumber'];
+                    });
+                }
+                $albumData['previewUrl'] = $albumData['discs'][1][0]['previewUrl'];
+                // remove songs from the album data since we don't need them anymore
+                unset($albumData['songs']);
 
-                $albumData['previewUrl'] = $albumData['songs'][0]['previewUrl'];
-                $albumData['artworkUrl1000'] = str_replace('100x100', '1000x1000', $albumData['artworkUrl100']);
+
+                $albumData['artworkUrl400'] = str_replace('100x100', '400x400', $albumData['artworkUrl100']);
                 $albumData['timesGenerated'] = $timesGenerated;
                 // Update the cached album data and timestamp
                 $cachedData = ['data' => $albumData, 'timestamp' => $currentTime];
@@ -62,15 +73,26 @@ class AlbumController extends Controller
                             $NewalbumData['songs'][] = $song;
                         }
                     }
-                    usort($NewalbumData['songs'], function ($a, $b) {
-                        return $a['trackNumber'] <=> $b['trackNumber'];
-                    });
-                    $NewalbumData['previewUrl'] = $NewalbumData['songs'][0]['previewUrl'];
-                    $NewalbumData['artworkUrl1000'] = str_replace('100x100', '1000x1000', $NewalbumData['artworkUrl100']);
+
+                    // if the album has multiple discs, we need to group the songs by disc number, then each disc by track number
+                    $discs = [];
+                    foreach ($NewalbumData['songs'] as $song) {
+                        $discs[$song['discNumber']][] = $song;
+                    }
+                    $NewalbumData['discs'] = $discs;
+                    foreach ($NewalbumData['discs'] as $discNumber => $disc) {
+                        usort($NewalbumData['discs'][$discNumber], function ($a, $b) {
+                            return $a['trackNumber'] <=> $b['trackNumber'];
+                        });
+                    }
+                    $NewalbumData['previewUrl'] = $NewalbumData['discs'][1][0]['previewUrl'];
+                    // remove songs from the album data since we don't need them anymore
+                    unset($NewalbumData['songs']);
+
+
+                    $NewalbumData['artworkUrl400'] = str_replace('100x100', '400x400', $NewalbumData['artworkUrl100']);
                     $NewalbumData['timesGenerated'] = $cachedData['data']['timesGenerated'] + 1;
-                    // check if the album data has changed by comparing the old and new data
-                    // to be precise, we are going to turn both arrays into strings and compare
-                    // after removing the update key cause it will always be different
+
                     $oldData = serialize($albumData);
                     $NewData = serialize($NewalbumData);
 
