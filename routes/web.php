@@ -25,3 +25,6 @@ Route::get('/static-page', [StaticPageController::class, 'index'])
 
 Route::get('/top-albums', [TopAlbumsController::class, 'index'])->name('top-albums');
 Route::get('/albums/{id}', [AlbumController::class, 'show'])->name('album');
+Route::get('/404', function () {
+    return view('404');
+})->name('404');

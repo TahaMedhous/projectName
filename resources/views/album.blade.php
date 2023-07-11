@@ -67,16 +67,11 @@
         @endforeach
 
         <div class="fixed bottom-0 left-0 w-full">
-
             <audio controls id="audioPlayer" class="w-full bg-zinc-900 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mx-auto rounded-t-md px-2 py-2 drop-shadow-md" hidden>
             </audio>
         </div>
-        @else
-        <div class="text-center">
-            <h1 class="text-4xl font-bold">Album Not Found</h1>
-            <a href="/" class="inline-block mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Go Back</a>
-        </div>
-
         @endif
     </div>
 </body>
+
+</html>

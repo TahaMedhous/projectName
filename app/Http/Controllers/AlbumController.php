@@ -29,7 +29,9 @@ class AlbumController extends Controller
                 Cache::put($cacheKey, $cachedData, self::ALBUM_CACHE_DURATION);
             } else {
                 // Handle error if API request fails, album not found, etc.
-                throw new \Exception("Failed to fetch album data.");
+                // throw new \Exception("Failed to fetch album data.");
+
+                return view('404');
             }
         } elseif ($albumData && ($currentTime - $timestamp) >= self::ALBUM_CACHE_DURATION) {
             // album data is stale, so try to fetch new data to see if it has changed
@@ -75,7 +77,6 @@ class AlbumController extends Controller
                     return $a['trackNumber'] <=> $b['trackNumber'];
                 });
             }
-
             $albumData['previewUrl'] = $albumData['discs'][1][0]['previewUrl'];
             unset($albumData['songs']);
             // get rid of the songs array since we don't need it anymore
