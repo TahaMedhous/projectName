@@ -19,7 +19,6 @@
 <body class="bg-zinc-900">
     <div class="p-10">
         @if($albumData)
-
         <div class="album-details flex flex-col text-center md:flex-row md:text-left items-center justify-start">
             <div class="w-64 h-64">
                 <img src="{{ $albumData['artworkUrl400'] }}" alt="Album Cover" class="album-image rounded-md object-cover w-[16rem] h-[16rem] blur-[14px] relative opacity-75 max-w-fit">
@@ -36,7 +35,7 @@
                 @if($albumData['collectionExplicitness'] == 'explicit')
                 <img src="{{ asset('icons/explicit.svg') }}" alt="Explicit" class="w-6 h-6" />
                 @endif
-                <a class="text-base font-bold inline-block px-4 py-2 bg-neutral-600 text-white rounded-md hover:bg-neutral-500 transition-colors flex items-center cursor-pointer" onclick="playAudioMaster( '{{ $albumData['discs'][1][0]['previewUrl'] }}', 'audioPlayer', 'playIconNumber{{ $albumData['discs'][1][0]['trackNumber'] }}_{{ $albumData['discs'][1][0]['discNumber'] }}')">
+                <a class="text-base font-bold inline-block px-4 py-2 bg-neutral-600 text-white rounded-md hover:bg-neutral-500 transition-colors flex items-center cursor-pointer" onclick="playAudioMaster(`{{ $albumData['discs'][1][0]['previewUrl'] }}`, `audioPlayer`, `playIconNumber{{ $albumData['discs'][1][0]['trackNumber'] }}_{{ $albumData['discs'][1][0]['discNumber'] }}`)">
                     Preview
                 </a>
             </div>
@@ -59,7 +58,7 @@
                 </div>
             </div>
             <div id="play" class="flex items-center gap-4">
-                <a target="_blank" class="text-base font-bold inline-block px-4 py-2 bg-neutral-600 text-white rounded-md hover:bg-neutral-500 transition-colors flex items-center cursor-pointer w-24" onclick="playAudioMaster( '{{ $song['previewUrl'] }}', 'audioPlayer', 'playIconNumber{{ $song['trackNumber'] }}_{{ $disc[0]['discNumber'] }}')">
+                <a target="_blank" class="text-base font-bold inline-block px-4 py-2 bg-neutral-600 text-white rounded-md hover:bg-neutral-500 transition-colors flex items-center cursor-pointer w-24" onclick="playAudioMaster(`{{ $song['previewUrl'] }}`, `audioPlayer`, `playIconNumber{{ $song['trackNumber'] }}_{{ $disc[0]['discNumber'] }}`)">
                     <i class="fa-solid fa-play inline-block w-4 h-4 mr-2" style="color: #ffffff;" id="playIconNumber{{ $song['trackNumber'] }}_{{ $disc[0]['discNumber'] }}"></i>
                     Play</a>
             </div>
