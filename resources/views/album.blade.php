@@ -21,7 +21,7 @@
         @if($albumData)
         <div class="album-details flex flex-col text-center md:flex-row md:text-left items-center justify-start">
             <div class="w-64 h-64">
-                <img src="{{ $albumData['artworkUrl400'] }}" alt="Album Cover" class="album-image rounded-md object-cover w-[16rem] h-[16rem] blur-[14px] relative opacity-75 max-w-fit">
+                <img src="{{ $albumData['artworkUrl400'] }}" alt="Album Cover" class="album-image rounded-md object-cover w-[16rem] h-[16rem] blur-[10px] relative opacity-75 max-w-fit">
                 <img src="{{ $albumData['artworkUrl400'] }}" alt="Album Cover" class="album-image rounded-md object-cover w-64 h-64 relative top-[-16rem] border-[1px] border-[#ffffff1c] max-w-fit">
             </div>
             <div class="ml-0 md:ml-10 mt-10 md:mt-0 flex flex-col items-center md:items-start gap-4">
